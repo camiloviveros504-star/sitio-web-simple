@@ -104,40 +104,6 @@
     });
   }
 
-  // Carrusel cilindrico de etapas
-  var ring = document.getElementById('ring'), wrap = document.getElementById('ringWrap');
-  var faces = ring.querySelectorAll('.rf'), N = faces.length, STEP = 360 / N;
-  var angle = 0, auto = !still, timer = null, drag = null;
-  var it = document.getElementById('it'), idesc = document.getElementById('idesc');
-  function idx() { return ((Math.round(-angle / STEP) % N) + N) % N; }
-  function paint() {
-    ring.style.setProperty('--a', angle + 'deg');
-    var i = idx();
-    faces.forEach(function (f, k) { f.classList.toggle('on', k === i); });
-    it.textContent = faces[i].getAttribute('data-t');
-    idesc.textContent = faces[i].getAttribute('data-d');
-  }
-  function go(dir) { ring.classList.add('snap'); angle = Math.round(angle / STEP) * STEP - dir * STEP; paint(); }
-  function stopAuto() { auto = false; clearInterval(timer); }
-  document.getElementById('next').addEventListener('click', function () { stopAuto(); go(1); });
-  document.getElementById('prev').addEventListener('click', function () { stopAuto(); go(-1); });
-  wrap.addEventListener('pointerdown', function (e) {
-    stopAuto(); drag = { x: e.clientX, a: angle }; ring.classList.remove('snap');
-    try { wrap.setPointerCapture(e.pointerId); } catch (x) {}
-  });
-  wrap.addEventListener('pointermove', function (e) {
-    if (!drag) return;
-    angle = drag.a + (e.clientX - drag.x) * 0.5; paint();
-  });
-  function end() {
-    if (!drag) return; drag = null;
-    ring.classList.add('snap'); angle = Math.round(angle / STEP) * STEP; paint();
-  }
-  wrap.addEventListener('pointerup', end);
-  wrap.addEventListener('pointercancel', end);
-  paint();
-  if (auto) timer = setInterval(function () { go(1); }, 4200);
-
   // Vista 3D con el movimiento del celular
   var stack = document.getElementById('stack'), vr = document.getElementById('vr');
   function onTilt(e) {
