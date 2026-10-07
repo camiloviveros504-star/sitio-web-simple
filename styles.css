@@ -162,8 +162,36 @@ h1{animation-delay:.12s}.lead{animation-delay:.24s}.scene{animation-delay:.38s}
 .js .fade.rf{transition:opacity .4s,border-color .4s}
 
 /* logo de WhatsApp */
-.wa .logo{flex:none;width:36px;height:36px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 3px 8px rgba(0,0,0,.35)}
-.wa .logo svg{width:22px;height:22px;fill:#fff;stroke:none}
+.wa .logo{flex:none;display:grid;place-items:center}
+.wa .logo svg{width:24px;height:24px;fill:#0b0b0c;stroke:none}
+@media (max-width:759px){
+  .dock{padding:8px 16px calc(10px + env(safe-area-inset-bottom))}
+  .wa{width:auto;max-width:100%;padding:9px 16px;gap:7px;font-size:.88rem;font-weight:700;border-radius:11px;box-shadow:0 3px 0 #5b5f64,0 8px 14px rgba(0,0,0,.5)}
+  .wa:active{transform:translateY(2px);box-shadow:0 1px 0 #5b5f64,0 4px 8px rgba(0,0,0,.5)}
+  .wa .logo svg{width:18px;height:18px}
+  .page{padding-bottom:110px}
+}
+
+/* "Facil de entender": animaciones suaves */
+.band .dc{overflow:hidden}
+.band .dc::after{width:0;transition:width .8s .35s cubic-bezier(.2,.8,.2,1)}
+.band .dc.vis::after{width:44px}
+.band .dc::before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);transform:skewX(-18deg);pointer-events:none;opacity:0}
+.band .dc.vis::before{animation:sheen 1.2s .5s ease-out 1 forwards}
+.band .dc h3,.band .dc p{transition:opacity .7s ease,translate .7s cubic-bezier(.2,.8,.2,1)}
+.js .band .dc:not(.vis) h3,.js .band .dc:not(.vis) p{opacity:0;translate:0 10px}
+.band .dc.vis h3{transition-delay:.25s}
+.band .dc.vis p{transition-delay:.38s}
+.js .band .tilt.rev{transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color .3s ease}
+@media (hover:hover){
+  .band .dc:hover{box-shadow:0 26px 40px rgba(30,34,40,.2),inset 0 1px 0 #fff;border-color:#c4c8ce}
+  .band .dc:hover::after{width:72px;transition-delay:0s}
+}
+@media (prefers-reduced-motion:reduce){
+  .band .dc::before{display:none}
+  .band .dc::after{width:44px;transition:none}
+  .js .band .dc:not(.vis) h3,.js .band .dc:not(.vis) p{opacity:1;translate:none}
+}
 
 /* titulo: maquina de escribir + rebote en onda con profundidad */
 h1.tw .grad{background:none;-webkit-text-fill-color:initial;color:inherit}
